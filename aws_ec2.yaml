@@ -1,0 +1,18 @@
+# This will use amazon.aws.aws_ec2 plugin to query all the ec2 instances in the region us-east-1.
+plugin: amazon.aws.aws_ec2
+regions:
+- us-east-1
+
+# This will group all the queried servers by Name tag.
+keyed-groups:
+- key: tags['Name']
+  prefix: ''
+  parent_group: ''
+
+# This filter will get all the servers Name starting with Backend.
+filters:
+  tag:Name: "Backend*"
+
+# This will get the private ip addresses of all the servers filtered with Backend*.
+compose:
+  ansible-host: private_ip_address

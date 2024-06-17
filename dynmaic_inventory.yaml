@@ -1,0 +1,8 @@
+# This will install the nginx server in all the instances queried from aws_ec2.yaml code.
+- name: Dynamic inverntory.
+  hosts: all
+  become: yes
+  tasks:
+  - name: Install below package.
+      name: nginx
+      state: latest

@@ -1,0 +1,16 @@
+---
+# Creating /app directory.
+- name: Create /app directory.
+  ansible.builtin.file:
+    path: "{{app_location}}"
+    state: directory
+
+# Unzipping the backend code which is already in remote server. hence, we are using remote_src: yes.
+- name: Unzipp the backend code into.
+  ansible.builtin.unarchive:
+    src: "https://expense-builds.s3.us-east-1.amazonaws.com/expense-{{component}}-v2.zip"
+    dest: "{{app_application}}"
+    remote_src: yes
+
+
+...

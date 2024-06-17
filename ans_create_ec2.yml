@@ -1,0 +1,38 @@
+# Create EC2 instance and create reoute53 records.
+- name: Create EC2 instance and create reoute53 records.
+  hosts: all
+  vars:
+    zone: aws_route53
+    instances:
+    - db
+    - backend
+    - frontend
+  tasks:
+  - name: Creating EC2 instances.
+    amazon.aws.ec2_instance:
+      name: "{{item}}"
+      image-id: ami-090252cbe067a9e58
+      instance_type: t2.micro
+      security_group: allow-all
+      tags:
+        Name: "{{item}}"
+    loop: "{{instances}}"
+    register: ec2_instance-info
+
+  - name: Printing the collected informaiton.
+    ansible.builtin.debug:
+      msg: "The EC2-Instances details are: {{ec2_instances_info}}"
+
+  - name: Creating Route53 records.
+    amazon.aws.route53:
+      sate: present
+      zone: "{{zone}}"
+      record: "{{item}}.{{zone}}"
+      type: A
+      value: "{{item.instances.private_ip_address}}"
+      overwrites: true
+      ttl: 1
+    loop: "{{ec2_instances_info.results}}"  
+
+
+

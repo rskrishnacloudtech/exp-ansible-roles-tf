@@ -1,0 +1,10 @@
+---
+- name: configure "{{component}}" server.
+  hosts: localhost
+  connection: local
+  vars:
+  - "variables-{{ environment }}.yml"
+  become: yes
+  roles:
+  - "{{component}}"
+...
