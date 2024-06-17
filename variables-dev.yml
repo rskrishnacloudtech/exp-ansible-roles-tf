@@ -2,3 +2,4 @@ login_user: root
 login_password: ExpenseApp1
 login_host: db-dev.domain.name
 DB_HOST: db-dev.domain.name
+BACKEND_API_URL: backend.app-dev.daws78s.online
