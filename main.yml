@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-  - "variables-{{ environment }}.yml"
+  - "variables-{{ env }}.yml"
   become: yes
   roles:
   - "{{component}}"
